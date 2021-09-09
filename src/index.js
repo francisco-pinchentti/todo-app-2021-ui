@@ -1,13 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
 import './index.css';
-import App from './App';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import App from './components/App';
 import reportWebVitals from './reportWebVitals';
+import reducers from './reducers';
+import axios from 'axios';
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from './sagas';
+
+axios.defaults.baseURL = 'http://localhost:8080/api';
+
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(reducers, applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 
