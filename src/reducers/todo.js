@@ -22,6 +22,12 @@ export default function todos(state = INITIAL_STATE, action) {
                     todos
                 };
             }
+        case TodoActionTypes.DELETE_OK:
+            const todos = state.todos.filter( t => t.rowid === action.payload.itemId);
+            return {
+                ...state,
+                todos
+            }
         default:
             return state;
     }

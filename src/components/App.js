@@ -21,7 +21,6 @@ class App extends Component {
 }
 
 const mapStateToProps = ({ todos }) => {
-  console.log(todos)
   return {
     todos: todos.todos
   }

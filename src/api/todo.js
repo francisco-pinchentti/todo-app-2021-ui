@@ -11,3 +11,7 @@ export const getTodos = () => {
 export const putTodoItem = (item) => {
     return axios.put(`/todos/${item.rowid}`, item);
 };
+
+export const delTodoItem = (itemId) => {
+    return axios.delete(`/todos/${itemId}`);
+};

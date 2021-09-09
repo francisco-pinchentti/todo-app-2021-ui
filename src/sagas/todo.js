@@ -34,11 +34,31 @@ function* watchUpdateTodo() {
     while (true) {
         const { payload } = yield take(actions.Types.UPDATE_START);
         yield call(updateTodo, payload);
-    }}
+    }
+}
+
+function* delTodo({ itemId }) {
+    try {
+        const result = yield call(api.delTodoItem, itemId);
+        yield put(actions.delTodoItemOk({
+            itemId: result.data.id
+        }));
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function* watchDelTodo() {
+    while (true) {
+        const { payload } = yield take(actions.Types.DELETE_START);
+        yield call(delTodo, payload);
+    }
+}
 
 const sagas = [
     fork(watchGetTodos),
-    fork(watchUpdateTodo)
+    fork(watchUpdateTodo),
+    fork(watchDelTodo)
 ];
 
 export default sagas;

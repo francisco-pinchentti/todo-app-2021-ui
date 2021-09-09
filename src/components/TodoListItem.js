@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ListGroupItem, Button, Label, Input, FormGroup } from 'reactstrap';
 import { connect } from 'react-redux';
-import { updateTodoItemStart } from '../actions/todo';
+import { updateTodoItemStart, delTodoItem } from '../actions/todo';
 
 class TodoListGroupItem extends Component {
     render() {
@@ -20,14 +20,14 @@ class TodoListGroupItem extends Component {
                     </FormGroup>
                 </div>
                 <div style={{ width: '120px' }}>
-                    <Button color="danger">DELETE</Button>
+                    <Button onClick={() => this.onDelete()} color="danger">DELETE</Button>
                 </div>
             </ListGroupItem>
         );
     }
 
     onDelete() {
-
+        this.props.delTodoItem({ itemId: this.props.model.rowid });
     }
 
     onIsDoneChange() {
@@ -40,5 +40,6 @@ class TodoListGroupItem extends Component {
 }
 
 export default connect(null, {
-    updateTodoItemStart
+    updateTodoItemStart,
+    delTodoItem
 })(TodoListGroupItem);
